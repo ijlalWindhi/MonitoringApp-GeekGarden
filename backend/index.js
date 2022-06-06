@@ -10,6 +10,9 @@ app.use(cors());
 const user = require('./routes/user')
 app.use('/user', user);
 
+const report = require('./routes/report')
+app.use('/report', report);
+
 //run server
 const port = 3030;
 app.listen(port, () => {

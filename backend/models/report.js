@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT
   }, {
     sequelize,
+    timestamps: false,
     modelName: 'report',
     tableName: 'report',
   });

@@ -19,11 +19,13 @@ app.get("/", async (req,res) => {
     user.findAll()
         .then(result => {
             res.json({
+                status: "success",
                 user : result
             })
         })
         .catch(error => {
             res.json({
+                status: "error",
                 message: error.message
             })
         })
@@ -48,11 +50,12 @@ app.post("/register", async (req,res) => {
         .then(result => {
             res.json({
                 status: "success",
-                message: "User has been created"
+                message: "User has been add"
             })
         })
         .catch(error => {
             res.json({
+                status: "error",
                 message: error.message
             })
         })
@@ -94,12 +97,13 @@ app.delete("/delete/:id", async (req,res) => {
         })
         .catch(error => {
             res.json({
+                status: "error",
                 message: error.message
             })
         })
 })
 
-// Edit data petugas
+// endpoint edit
 app.put("/edit/:id", async (req,res) => {
     let param = {
         id : req.params.id
@@ -128,6 +132,7 @@ app.put("/edit/:id", async (req,res) => {
         })
         .catch(error => {
             res.json({
+                status: "error",
                 message: error.message
             })
         })
