@@ -13,6 +13,9 @@ app.use('/user', user);
 const report = require('./routes/report')
 app.use('/report', report);
 
+const project = require('./routes/project')
+app.use('/project', project);
+
 //run server
 const port = 3030;
 app.listen(port, () => {

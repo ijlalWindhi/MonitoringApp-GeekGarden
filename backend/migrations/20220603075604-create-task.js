@@ -23,7 +23,15 @@ module.exports = {
       deadline: {
         type: Sequelize.DATE,
         allowNull: false
-      },      
+      },
+      status: {
+        type: Sequelize.ENUM('aktif','tidak-aktif'),
+        allowNull: false
+      },
+      id_project: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      }
     });
   },
   async down(queryInterface, Sequelize) {

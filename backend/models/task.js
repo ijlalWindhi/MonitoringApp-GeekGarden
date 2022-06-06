@@ -11,15 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.project, {
+        foreignKey: 'id_project',
+        as: 'project'
+      });
     }
   }
   task.init({
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     member: DataTypes.STRING,
-    deadline: DataTypes.STRING
+    deadline: DataTypes.STRING,
+    id_project: DataTypes.INTEGER,
+    status: DataTypes.ENUM('aktif','tidak-aktif')
   }, {
     sequelize,
+    timestamps: false,
     modelName: 'task',
     tableName: 'task',
   });

@@ -16,11 +16,15 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
+      image: {
+        type: Sequelize.STRING(255),
+        allowNull: false
+      },
       leader: {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      member: {
+      id_member: {
         type: Sequelize.STRING(255),
         allowNull: false
       },

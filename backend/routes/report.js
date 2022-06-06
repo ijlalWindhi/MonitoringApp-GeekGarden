@@ -39,6 +39,34 @@ app.get("/", async (req,res) => {
         })
 })
 
+// endpoint get data by id
+app.get("/:id", async (req,res) => {
+    report.findOne({
+        where: {
+            id: req.params.id
+        },
+        include: [
+            "user",
+            {
+                model: model.user,
+                as : "user",
+            }
+        ]
+    })
+        .then(result => {
+            res.json({
+                status: "success",
+                report : result
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
 // endpoint add
 app.post("/add/:id", async (req,res) => {
     const data = {

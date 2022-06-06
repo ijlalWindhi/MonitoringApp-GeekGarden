@@ -19,7 +19,7 @@ module.exports = {
       description: {
         type: Sequelize.TEXT,
         allowNull: false
-      },      
+      },
     });
   },
   async down(queryInterface, Sequelize) {

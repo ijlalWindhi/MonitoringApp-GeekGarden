@@ -31,6 +31,27 @@ app.get("/", async (req,res) => {
         })
 })
 
+// endpoint get data by id
+app.get("/:id", async (req,res) => {
+    user.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(result => {
+            res.json({
+                status: "success",
+                user : result
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
 // endpoint register
 app.post("/register", async (req,res) => {
     const data = {
