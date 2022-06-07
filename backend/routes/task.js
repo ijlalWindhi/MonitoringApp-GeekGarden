@@ -33,7 +33,7 @@ app.get("/", async (req,res) => {
         })
 })
 
-// endpoint get data by id user
+// endpoint get data by id user and sort by deadline
 app.get("/:id_user", async (req,res) => {
     task.findAll({
         where: {
@@ -48,6 +48,9 @@ app.get("/:id_user", async (req,res) => {
                     id: req.params.id_user
                 }
             }
+        ],
+        order: [
+            ["deadline", "ASC"]
         ]
     })
         .then(result => {

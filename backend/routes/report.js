@@ -17,7 +17,10 @@ app.get("/", async (req,res) => {
         include: {                        
             model: model.user,
             as : "user",
-        }
+        },
+        order: [
+            ["date", "DESC"]
+        ]
     })
         .then(result => {
             res.json({
@@ -48,6 +51,9 @@ app.get("/:id_user", async (req,res) => {
                     id: req.params.id_user
                 }
             }
+        ],
+        order: [
+            ["date", "DESC"]
         ]
     })
         .then(result => {

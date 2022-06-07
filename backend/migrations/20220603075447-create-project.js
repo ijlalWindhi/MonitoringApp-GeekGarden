@@ -20,6 +20,10 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
+      deadline: {
+        type: Sequelize.DATE,
+        allowNull: false
+      }
     });
   },
   async down(queryInterface, Sequelize) {

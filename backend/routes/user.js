@@ -6,9 +6,7 @@ const bcrypt = require('bcrypt');
 //implementasi library
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //import multer
 const multer = require("multer")
@@ -22,7 +20,7 @@ const user = model.user
 //config storage image
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../public/image/userProfile")
+        cb(null, "./public/image/userProfile")
     },
     filename: (req, file, cb) => {
         cb(null, "img-" + Date.now() + path.extname(file.originalname))
@@ -69,14 +67,15 @@ app.get("/:id", async (req,res) => {
 })
 
 // endpoint register
-app.post("/register", async (req,res) => {
+app.post("/register",upload.single("image"), async (req,res) => {
     const data = {
         name : req.body.name,
         username : req.body.username,
         password : req.body.password,
         email : req.body.email,
         role : req.body.role,
-        position : req.body.position
+        position : req.body.position,
+        image : "userProfile.svg"
     }
     
     // bcrypt password
@@ -125,6 +124,15 @@ app.delete("/delete/:id", async (req,res) => {
     let param = {
         id : req.params.id
     }
+    let result = await user.findOne({where: param})
+    if(result.image != "userProfile.svg"){
+        let oldFileName = result.image
+        // delete old file
+        let dir = path.join(__dirname,"../public/image/userProfile",oldFileName)
+        fs.unlink(dir, err => console.log(err))
+    }
+
+    // delete data
     user.destroy({where : param})
         .then(result => {
             res.json({
@@ -142,9 +150,7 @@ app.delete("/delete/:id", async (req,res) => {
 
 // endpoint edit
 app.put("/edit/:id", async (req,res) => {
-    let param = {
-        id : req.params.id
-    }
+    let param = {id : req.params.id}
     const data = {
         name : req.body.name,
         username : req.body.username,
@@ -154,11 +160,33 @@ app.put("/edit/:id", async (req,res) => {
         position : req.body.position
     }
 
-    // check password not null
+    // check if password is empty
     if(data.password){
         const salt = await bcrypt.genSalt(10);
         data.password = await bcrypt.hash(data.password, salt);
     }
+
+    // check if image is empty
+    if (req.file) {
+        // get data by id
+        user.findOne({where: param})
+        .then(result => {
+            let oldFileName = result.image
+            // delete old file
+            let dir = path.join(__dirname,"../public/image/userProfile",oldFileName)
+            fs.unlink(dir, err => console.log(err))
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+        // set new filename
+        data.image = req.file.filename
+    }
+
+    // console.log(data)
 
     user.update(data, {where: param})
         .then(result => {

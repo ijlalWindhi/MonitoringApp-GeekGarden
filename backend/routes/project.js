@@ -44,6 +44,53 @@ app.get("/", async (req,res) => {
         })
 })
 
+// endpoint get data sort by deadline
+app.get("/sort/", async (req,res) => {
+    project.findAll({
+        order: [
+            ["deadline", "ASC"]
+        ]
+    })
+        .then(result => {
+            let hasil = []
+            for(let i = 0; i < 2; i++){
+                hasil.push(result[i])
+            }
+            res.json({
+                status: "success",
+                project :
+                hasil
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
+// endpoint get data recent add
+app.get("/recent/", async (req,res) => {
+    project.findAll({
+        order: [
+            ["id", "DESC"]
+        ]
+    })
+        .then(result => {
+            res.json({
+                status: "success",
+                project : result[0]
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
 // endpoint add
 app.post("/add/", upload.single("image"), async (req, res) =>{
     if (!req.file) {
@@ -55,7 +102,8 @@ app.post("/add/", upload.single("image"), async (req, res) =>{
         let data = {
             name: req.body.name,
             description: req.body.description,           
-            image: req.file.filename
+            image: req.file.filename,
+            deadline: req.body.deadline
         }
         project
         .create(data)
@@ -80,7 +128,10 @@ app.put("/edit/:id", upload.single("image"), async (req, res) =>{
     let data = {
         name: req.body.name,
         description: req.body.description,           
+        deadline: req.body.deadline
     }
+
+    // check if image is empty
     if (req.file) {
         // get data by id
         project.findOne({where: param})

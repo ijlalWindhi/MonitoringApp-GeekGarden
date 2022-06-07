@@ -32,6 +32,10 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      }
     });
   },
   async down(queryInterface, Sequelize) {
