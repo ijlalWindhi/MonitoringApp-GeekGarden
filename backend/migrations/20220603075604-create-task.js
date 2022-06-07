@@ -16,8 +16,8 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      member: {
-        type: Sequelize.STRING(255),
+      id_user: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       deadline: {

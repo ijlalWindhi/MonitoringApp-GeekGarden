@@ -15,12 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_project',
         as: 'project'
       });
+      this.belongsTo(models.user, {
+        foreignKey: 'id_user',
+        as: 'user'
+      })
     }
   }
   task.init({
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-    member: DataTypes.STRING,
+    id_user: DataTypes.INTEGER,
     deadline: DataTypes.STRING,
     id_project: DataTypes.INTEGER,
     status: DataTypes.ENUM('aktif','tidak-aktif')

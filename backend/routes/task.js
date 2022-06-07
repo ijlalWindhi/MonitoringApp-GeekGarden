@@ -9,20 +9,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //import model
 const model = require('../models/index');
-const report = model.report
+const task = model.task
 
-// endpoint get all data report
+// endpoint get all data task
 app.get("/", async (req,res) => {
-    report.findAll({
+    task.findAll({
         include: {                        
-            model: model.user,
-            as : "user",
+            model: model.project,
+            as : "project",
         }
     })
         .then(result => {
             res.json({
                 status: "success",
-                report : result
+                task : result
             })
         })
         .catch(error => {
@@ -35,7 +35,7 @@ app.get("/", async (req,res) => {
 
 // endpoint get data by id user
 app.get("/:id_user", async (req,res) => {
-    report.findAll({
+    task.findAll({
         where: {
             id_user: req.params.id_user
         },
@@ -53,7 +53,40 @@ app.get("/:id_user", async (req,res) => {
         .then(result => {
             res.json({
                 status: "success",
-                report : result
+                task : result
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
+// endpoint get data by id project
+app.get("/getByProject/:id_project", async (req,res) => {
+    task.findAll({
+        where: {
+            id_project: req.params.id_project
+        },
+        include: [
+            "project",
+            {
+                model: model.project,
+                as : "project",
+            },
+            "user",
+            {
+                model: model.user,
+                as : "user",
+            }
+        ]
+    })
+        .then(result => {
+            res.json({
+                status: "success",
+                task : result
             })
         })
         .catch(error => {
@@ -67,38 +100,46 @@ app.get("/:id_user", async (req,res) => {
 // endpoint add
 app.post("/add/", async (req,res) => {
     const data = {
-        id_user : req.body.id_user,
-        date : req.body.date,
-        description : req.body.description
+        name: req.body.name,
+        description: req.body.description,
+        deadline: req.body.deadline,
+        status: req.body.status,
+        id_user: req.body.id_user,
+        id_project: req.body.id_project,
     }
-    report.create(data)
+    task.create(data)
         .then(result => {
             res.json({
                 status: "success",
-                message: "Report has been add"
+                message: "Task has been add"
             })
         })
         .catch(error => {
             res.json({
+                status: "error",
                 message: error.message
             })
         })
 })
 
 // endpoint edit
-app.put("/edit/:id", async (req,res) => {
+app.put("/edit/:id_task", async (req,res) => {
     let param = {
-        id: req.params.id
+        id: req.params.id_task
     }
     const data = {
-        date : req.body.date,
-        description : req.body.description
+        name: req.body.name,
+        description: req.body.description,
+        deadline: req.body.deadline,
+        status: req.body.status,
+        id_user: req.body.id_user,
+        id_project: req.body.id_project,
     }
-    report.update(data, {where : param})
+    task.update(data, {where : param})
         .then(result => {
             res.json({
                 status: "success",
-                message: "Report has been updated"
+                message: "Task has been updated"
             })
         })
         .catch(error => {
@@ -114,11 +155,11 @@ app.delete("/delete/:id", async (req,res) => {
     let param = {
         id: req.params.id
     }
-    report.destroy({where : param})
+    task.destroy({where : param})
         .then(result => {
             res.json({
                 status: "success",
-                message: "Report has been deleted"
+                message: "task has been deleted"
             })
         })
         .catch(error => {
@@ -128,4 +169,5 @@ app.delete("/delete/:id", async (req,res) => {
             })
         })
 })
+
 module.exports = app
