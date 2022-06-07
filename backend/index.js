@@ -1,10 +1,12 @@
 //import library
 const express = require('express');
 const cors = require('cors');
+const path = require('path')
 
 //implementasi
 const app = express();
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')))
 
 //endpoint
 const user = require('./routes/user')

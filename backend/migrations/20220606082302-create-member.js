@@ -11,9 +11,16 @@ module.exports = {
       id_user: {
         type: Sequelize.INTEGER
       },
+      role: {
+        type: Sequelize.ENUM('leader', 'member')
+      },
       position: {
         type: Sequelize.STRING
       },
+      id_project: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      }
     });
   },
   async down(queryInterface, Sequelize) {

@@ -18,14 +18,14 @@ const project = model.project
 
 //config storage image
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "../public/image/project")
+    destination:(req,file,cb) => {
+        cb(null,"./public/image/project")
     },
-    filename: (req, file, cb) => {
+    filename: (req,file,cb) => {
         cb(null, "img-" + Date.now() + path.extname(file.originalname))
     }
 })
-let upload = multer({ storage: storage })
+let upload = multer({storage: storage})
 
 // endpoint get all data project
 app.get("/", async (req,res) => {
@@ -44,24 +44,6 @@ app.get("/", async (req,res) => {
         })
 })
 
-// endpoint get data by id user
-app.get("/getByOut/:id_user", async (req, res) => {
-    let result =  await paket.findAll({
-        where: {id_user: req.params.id_user},
-        include: [
-            "outlet",
-            {
-                model: model.outlet,
-                as : "outlet",
-            }
-        ]
-    })
-    res.json({
-        paket: result
-    })
-    
-})
-
 // endpoint add
 app.post("/add/", upload.single("image"), async (req, res) =>{
     if (!req.file) {
@@ -72,9 +54,7 @@ app.post("/add/", upload.single("image"), async (req, res) =>{
     } else {
         let data = {
             name: req.body.name,
-            description: req.body.description,
-            leader: req.body.leader,
-            id_member: req.body.member,
+            description: req.body.description,           
             image: req.file.filename
         }
         project
@@ -82,7 +62,7 @@ app.post("/add/", upload.single("image"), async (req, res) =>{
         .then(result => {
             res.json({
                 status: "success",
-                message: "Data has been inserted"
+                message: "Project has been inserted"
             })
         })
         .catch(error => {
@@ -92,6 +72,73 @@ app.post("/add/", upload.single("image"), async (req, res) =>{
             })
         })
     }
+})
+
+// endpoint edit
+app.put("/edit/:id", upload.single("image"), async (req, res) =>{
+    let param = {id: req.params.id}
+    let data = {
+        name: req.body.name,
+        description: req.body.description,           
+    }
+    if (req.file) {
+        // get data by id
+        project.findOne({where: param})
+        .then(result => {
+            let oldFileName = result.image
+            // delete old file
+            let dir = path.join(__dirname,"../public/image/project",oldFileName)
+            fs.unlink(dir, err => console.log(err))
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+        // set new filename
+        data.image = req.file.filename
+    }
+    project.update(data, {where: param})
+        .then(result => {
+            res.json({
+                status: "success",
+                message: "Project has been updated",
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
+// endpoint delete
+app.delete("/delete/:id", async (req, res) =>{
+        let param = {
+            id: req.params.id
+        }
+        let result = await project.findOne({where: param})
+        let oldFileName = result.image
+        // delete old file
+        let dir = path.join(__dirname,"../public/image/project",oldFileName)
+        fs.unlink(dir, err => console.log(err))
+
+        // delete data
+        project.destroy({where : param})
+        .then(result => {
+            res.json({
+                status: "success",
+                message: "Report has been deleted"
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
 })
 
 module.exports = app

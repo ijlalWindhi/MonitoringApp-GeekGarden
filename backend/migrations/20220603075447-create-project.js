@@ -20,18 +20,6 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      leader: {
-        type: Sequelize.STRING(255),
-        allowNull: false
-      },
-      id_member: {
-        type: Sequelize.STRING(255),
-        allowNull: false
-      },
-      id_task: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      }
     });
   },
   async down(queryInterface, Sequelize) {

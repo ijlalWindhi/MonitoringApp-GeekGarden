@@ -11,21 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.task, {
-        foreignKey: 'id',
-        as: 'task'
-      });
-      this.hasMany(models.member, {
-        foreignKey: 'id',
-        as: 'Member'
-      })
     }
   }
   project.init({
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-    leader: DataTypes.STRING,
-    id_member: DataTypes.STRING
+    image: DataTypes.STRING,
   }, {
     sequelize,
     timestamps: false,

@@ -10,9 +10,25 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+//import multer
+const multer = require("multer")
+const path = require("path")
+const fs = require("fs")
+
 //import model
 const model = require('../models/index');
 const user = model.user
+
+//config storage image
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "../public/image/userProfile")
+    },
+    filename: (req, file, cb) => {
+        cb(null, "img-" + Date.now() + path.extname(file.originalname))
+    }
+})
+let upload = multer({ storage: storage })
 
 // endpoint get all data user
 app.get("/", async (req,res) => {
