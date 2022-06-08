@@ -1,5 +1,7 @@
 //import library
 const express = require('express');
+const cookieParser = require("cookie-parser");
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
@@ -7,6 +9,15 @@ const bcrypt = require('bcrypt');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+app.use(cookieParser());
+
+// initial variable
+let sessionData
 
 //import multer
 const multer = require("multer")
@@ -53,6 +64,7 @@ app.get("/:id", async (req,res) => {
         }
     })
         .then(result => {
+            sessionData=req.session;
             res.json({
                 status: "success",
                 user : result
@@ -106,6 +118,9 @@ app.post("/login", async (req, res) => {
             // token
             // let payload = JSON.stringify(user)
             // let token = jwt.sign(payload, SECRET_KEY)
+            req.session.loggedin = true;
+            sessionData=req.session;
+            console.log(req.session)
             res.json({  status: "success",
                         message: "Valid password",
                     });
