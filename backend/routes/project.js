@@ -70,27 +70,6 @@ app.get("/sort/", async (req,res) => {
         })
 })
 
-// endpoint get data recent add
-app.get("/recent/", async (req,res) => {
-    project.findAll({
-        order: [
-            ["id", "DESC"]
-        ]
-    })
-        .then(result => {
-            res.json({
-                status: "success",
-                project : result[0]
-            })
-        })
-        .catch(error => {
-            res.json({
-                status: "error",
-                message: error.message
-            })
-        })
-})
-
 // endpoint add
 app.post("/add/", upload.single("image"), async (req, res) =>{
     if (!req.file) {

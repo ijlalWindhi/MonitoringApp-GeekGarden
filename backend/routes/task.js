@@ -11,6 +11,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 const model = require('../models/index');
 const task = model.task
 
+// initial variable
+let data;
+
 // endpoint get all data task
 app.get("/", async (req,res) => {
     task.findAll({
@@ -87,8 +90,10 @@ app.get("/getByProject/:id_project", async (req,res) => {
         ]
     })
         .then(result => {
+            data = 100 / result.length;
             res.json({
                 status: "success",
+                dataProgress : data,
                 task : result
             })
         })

@@ -89,6 +89,29 @@ app.get("/getTeam/:id_project", async (req,res) => {
         })
 })
 
+// endpoint get data recent add
+app.get("/recent/:id_user", async (req,res) => {
+    let param = {id_user: req.params.id_user}
+    member.findAll({
+        where: param,
+        order: [
+            ["id_project", "ASC"]
+        ]
+    })
+        .then(result => {
+            res.json({
+                status: "success",
+                project : result[0]
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
 // endpoint add
 app.post("/add/", async (req,res) => {
     const data = {
