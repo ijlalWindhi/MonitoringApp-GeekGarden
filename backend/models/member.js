@@ -12,14 +12,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.project, {
-        foreignKey: 'id_member',
+        foreignKey: 'id_project',
         as: 'project'
+      });
+      this.belongsTo(models.user, {
+        foreignKey: 'id_user',
+        as: 'user'
       });
     }
   }
   member.init({
     id_user: DataTypes.INTEGER,
-    position: DataTypes.STRING
+    position: DataTypes.STRING,
+    role: DataTypes.ENUM('leader','member'),
+    id_project: DataTypes.INTEGER, 
   }, {
     sequelize,
     timestamps: false,

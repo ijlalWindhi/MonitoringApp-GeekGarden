@@ -13,11 +13,13 @@ const user = require('./routes/user')
 const report = require('./routes/report')
 const project = require('./routes/project')
 const task = require('./routes/task')
+const member = require('./routes/member')
 
 app.use('/user', user);
 app.use('/report', report);
 app.use('/project', project);
 app.use('/task', task);
+app.use('/member', member);
 
 //run server
 const port = 3030;
