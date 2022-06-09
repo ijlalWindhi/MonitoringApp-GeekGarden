@@ -1,8 +1,5 @@
-import {useState} from 'react'
 import {useForm} from 'react-hook-form'
 import loginHandler from './LoginHandler'
-import axios from 'axios'
-
 import Logo from '../../../assets/logo.svg'
 
 export default function LoginForm() {
@@ -11,53 +8,6 @@ export default function LoginForm() {
     const submitHandler = async (values) => {
         await loginHandler(values);
     };
-
-    // const handleChange = (e) => {
-    //     setUsername({
-    //       [e.target.name]: e.target.value
-    //     })
-    // }
-    
-    // const handleLogin = (e) => {
-    //     e.preventDefault()
-    //     let data = {
-    //         username: username,
-    //         password: password
-    //     }
-    //     let url = "http://localhost:3030/user/login"
-    //     axios.post(url, data)
-    //         .then(res => {
-    //         if (res.data.logged === true) {
-    //             let name = res.data.data.nama
-    //             let user = res.data.data
-    //             let token = res.data.token
-    //             let id_user = res.data.data.id_user
-    //             let id_outlet = res.data.data.id_outlet
-    //             let role = res.data.data.role
-    //             let url1 = "http://localhost:8000/transaksi/myclass/" + id_user
-    //             localStorage.setItem("name", name)
-    //             localStorage.setItem("id_user", id_user)
-    //             localStorage.setItem("user", JSON.stringify(user))
-    //             localStorage.setItem("token", token)
-    //             localStorage.setItem("role", role)
-    //             localStorage.setItem("id_outlet", id_outlet)
-    //             axios.get(url1)
-    //             .then(res => {
-    //                 this.setState({
-    //                 class: res.data.data
-    //                 })
-    //                 localStorage.setItem("class", JSON.stringify(this.state.class))
-    //             })
-    //             .catch(error => {
-    //                 console.log(error)
-    //             })
-    //             window.location = "/"
-    //         }
-    //         else {
-    //             window.alert(res.data.message)
-    //         }
-    //         })
-    // }
 
     return (
         <div>

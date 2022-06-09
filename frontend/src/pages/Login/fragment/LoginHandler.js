@@ -1,14 +1,12 @@
 import axios from 'axios';
 import {API_URL} from '../../../utils/constants'
 
-import React from 'react'
-
 export default async function LoginHandler(values) {
-  // const LOGIN_URL = `${API_URL}user/login`
-  const LOGIN_URL = "http://localhost:3030/user/login"
+  const LOGIN_URL = `${API_URL}user/login`
   try{
     await axios.post(LOGIN_URL, values)
     .then(res => {
+      window.location.reload()
       if(res.data.logged === true){
         if(res.data.data.role === 'hrd'){
           window.location.href = '/hrd'

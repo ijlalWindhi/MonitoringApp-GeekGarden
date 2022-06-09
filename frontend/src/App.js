@@ -1,12 +1,10 @@
 import React from 'react';
-import Main from './pages/Main';
+import Routing from './components/Routes/Routing';
 
 class App extends React.Component {
   render(){
   return (
-    <div>
-      <p><Main /></p>
-    </div>
+      <Routing />
   );
   }
 }
