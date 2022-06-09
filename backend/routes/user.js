@@ -78,6 +78,35 @@ app.get("/:id", async (req,res) => {
         })
 })
 
+// endpoint get data by position
+app.get("/getByRole/:id_user", async (req,res) => {
+    user.findOne({
+        where: {
+            id: req.params.id_user
+        }
+    })
+        .then(result => {
+            user.findAll({
+                where: {
+                    position: result.position,
+                    role: "karyawan"
+                }
+            })
+                .then(result => {
+                res.json({
+                    status: "success",
+                    user : result
+                })
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
 // endpoint register
 app.post("/register",upload.single("image"), async (req,res) => {
     const data = {
