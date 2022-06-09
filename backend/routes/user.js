@@ -149,13 +149,15 @@ app.post("/login", async (req, res) => {
             // let token = jwt.sign(payload, SECRET_KEY)
             req.session.loggedin = true;
             sessionData=req.session;
-            console.log(req.session)
             res.json({  status: "success",
+                        logged: true,
                         message: "Valid password",
+                        data: data
                     });
         } else {
-            res.json({status: "error",
-                      message: "Invalid Password"
+            res.json({  status: "error",
+                        logged: false,
+                        message: "Invalid Password"
                     });
         }
     } else {
