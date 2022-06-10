@@ -11,23 +11,35 @@ export default function Sidebar() {
                 <ul className='mx-auto'>
                     <li className='mt-10'>
                         <NavLink to="/employee" activeClassName="active" className="flex items-center p-4 text-base font-normal">
-                            <Home width={35} height={35} className="text-white mx-auto text-xl" />
+                            <div className='flex flex-col'>
+                                <Home width={35} height={35} className="text-white mx-auto text-xl" />
+                                <h1 className='text-lg text-white'>Home</h1>
+                            </div>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/employee" activeClassName="active" className="flex items-center p-4 text-base font-normal">
-                            <Clipboard width={35} height={35} className="text-white mx-auto text-xl" />
+                            <div className='flex flex-col'>
+                                <Clipboard width={35} height={35} className="text-white mx-auto text-xl" />
+                                <h1 className='text-lg text-white'>Report</h1>
+                            </div>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/employee" activeClassName="active" className="flex items-center p-4 text-base font-normal">
-                            <Folder width={35} height={35} className="text-white mx-auto text-xl" />
+                            <div className='flex flex-col'>
+                                <Folder width={35} height={35} className="text-white mx-auto text-xl" />
+                                <h1 className='text-lg text-white'>Project</h1>
+                            </div>
                         </NavLink>
                     </li>
                     
                 </ul>
                 <button className='absolute bottom-20 ml-10' onClick={Logout}>
-                    <LogOut width={35} height={35} className='text-white mx-auto text-xl'/>
+                    <div className='flex flex-col'>
+                        <LogOut width={35} height={35} className='text-white mx-auto text-xl'/>
+                        <h1 className='text-lg text-white'>Logout</h1>
+                    </div>
                 </button>
             </div>
         </section>

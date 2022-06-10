@@ -10,13 +10,7 @@ export default async function LoginHandler(values) {
       window.location.reload()
 
       // save data to local storage
-      localStorage.setItem('id', res.data.data.id)
-      localStorage.setItem('name', res.data.data.name)
-      localStorage.setItem('username', res.data.data.username)
-      localStorage.setItem('email', res.data.data.email)
-      localStorage.setItem('role', res.data.data.role)
-      localStorage.setItem('position', res.data.data.position)
-      localStorage.setItem('image', res.data.data.image)
+      localStorage.setItem('item', JSON.stringify(res.data.data))
 
       // check falid username and password
       if(res.data.logged === true){

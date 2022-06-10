@@ -58,8 +58,7 @@ app.get("/sort/", async (req,res) => {
             }
             res.json({
                 status: "success",
-                project :
-                hasil
+                data : hasil
             })
         })
         .catch(error => {
