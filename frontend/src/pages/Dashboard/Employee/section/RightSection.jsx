@@ -1,11 +1,25 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Timer from '../../../../components/fragment/Timer/Timer'
 
 export default function RightSection() {
-  return (
-    <div>
-        <Timer/>
-        <h1></h1>
-    </div>
-  )
+    const [data, setData] = useState({})
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('item'))
+        if(data) {
+            setData(data)
+        }
+    }, [])
+
+    return (
+        <div>
+            <Timer/>
+            <div className='my-5'>
+                <h1 className='text-4xl font-medium'>Rp{data.salary}</h1>
+                <h3 className='text-input-200 text-xl'>monthly salary</h3>
+            </div>
+            <div>
+                <h1 className='text-2xl font-medium mt-5 mb-3'>Top 4 Deadline Task</h1>
+            </div>
+        </div>
+    )
 }

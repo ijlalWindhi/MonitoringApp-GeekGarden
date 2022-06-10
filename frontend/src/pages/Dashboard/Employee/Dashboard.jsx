@@ -1,6 +1,8 @@
 import React from 'react'
 import Sidebar from '../../../components/fragment/Sidebar/Sidebar'
 import LeftSection from './section/LeftSection'
+import MiddleSection from './section/MiddleSection'
+import RightSection from './section/RightSection'
 
 export default function Dashboard() {
   return (
@@ -11,8 +13,12 @@ export default function Dashboard() {
         <div className='col-span-4 flex items-center'>
           <LeftSection/>
         </div>
-        <div className='col-span-3'><h1>HALLO</h1></div>
-        <div className='col-span-4'><h1>HALLO</h1></div>
+        <div className='col-span-3 flex items-center'>
+          <MiddleSection/>
+        </div>
+        <div className='col-span-4 flex items-center justify-center'>
+          <RightSection/>
+        </div>
       </div>
     </div>
   )
