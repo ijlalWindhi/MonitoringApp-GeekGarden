@@ -2,7 +2,7 @@ import React from 'react'
 
 // import components
 import CardProfile from '../../../../components/fragment/Card Profile/CardProfile'
-import CardDeadline from '../../../../components/fragment/Card Deadline/CardDeadline'
+import CardDeadline from '../../../../components/fragment/Card Deadline Project/CardDeadline'
 
 // import assets
 import Logo from "../../../../assets/logo.svg"

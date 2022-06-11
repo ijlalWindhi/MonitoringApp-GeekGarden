@@ -10,13 +10,13 @@ export default function Dashboard() {
       <Sidebar />
       <div className='grid grid-cols-12 gap-x-5 mx-24 pt-3'>
         <div className='col-span-1'></div>
-        <div className='col-span-4 flex items-center'>
+        <div className='col-span-4 flex items-end'>
           <LeftSection/>
         </div>
         <div className='col-span-3 flex items-center'>
           <MiddleSection/>
         </div>
-        <div className='col-span-4 flex items-center justify-center'>
+        <div className='col-span-4 flex items-end justify-center'>
           <RightSection/>
         </div>
       </div>

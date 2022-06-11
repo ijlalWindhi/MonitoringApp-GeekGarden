@@ -5,9 +5,6 @@ import {API_URL} from '../../../utils/constants'
 export default function CardDeadline() {
     const CARD_URL = `${API_URL}project/sort`;
     const [projects, setProjects] = useState([]);
-    // const [name, setName] = useState([]);
-    // const [deadline, setDeadline] = useState([]);
-    // console.log(projects);
 
     try{
     axios.get(CARD_URL)

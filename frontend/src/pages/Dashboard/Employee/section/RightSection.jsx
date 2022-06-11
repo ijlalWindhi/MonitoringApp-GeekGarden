@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Timer from '../../../../components/fragment/Timer/Timer'
+import CardTask from '../../../../components/fragment/Card Deadline Task/CardDeadlineTask'
 
 export default function RightSection() {
     const [data, setData] = useState({})
@@ -18,7 +19,8 @@ export default function RightSection() {
                 <h3 className='text-input-200 text-xl'>monthly salary</h3>
             </div>
             <div>
-                <h1 className='text-2xl font-medium mt-5 mb-3'>Top 4 Deadline Task</h1>
+                <h1 className='text-2xl font-medium mb-3'>Top 4 Deadline Task</h1>
+                <CardTask/>
             </div>
         </div>
     )

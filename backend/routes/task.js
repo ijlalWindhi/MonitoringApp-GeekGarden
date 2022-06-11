@@ -47,9 +47,11 @@ app.get("/:id_user", async (req,res) => {
             {
                 model: model.user,
                 as : "user",
-                where: {
-                    id: req.params.id_user
-                }
+            },
+            "project",
+            {
+                model: model.project,
+                as : "project",
             }
         ],
         order: [
@@ -60,6 +62,46 @@ app.get("/:id_user", async (req,res) => {
             res.json({
                 status: "success",
                 task : result
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
+// endpoint get 4 data by id user and sort by deadline
+app.get("/sortByDeadline/:id_user", async (req,res) => {
+    task.findAll({
+        where: {
+            id_user: req.params.id_user
+        },
+        include: [
+            "user",
+            {
+                model: model.user,
+                as : "user",
+            },
+            "project",
+            {
+                model: model.project,
+                as : "project",
+            }
+        ],
+        order: [
+            ["deadline", "ASC"]
+        ]
+    })
+        .then(result => {
+            let hasil = []
+            for(let i = 0; i < 4; i++){
+                hasil.push(result[i])
+            }
+            res.json({
+                status: "success",
+                data : hasil
             })
         })
         .catch(error => {
