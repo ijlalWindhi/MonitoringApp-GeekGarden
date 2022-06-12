@@ -45,7 +45,7 @@ app.get("/", async (req,res) => {
 })
 
 // endpoint get data sort by deadline
-app.get("/sort/", async (req,res) => {
+app.get("/sort/:id_user", async (req,res) => {
     project.findAll({
         order: [
             ["deadline", "ASC"]

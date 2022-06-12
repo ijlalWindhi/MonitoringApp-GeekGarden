@@ -112,6 +112,31 @@ app.get("/recent/:id_user", async (req,res) => {
         })
 })
 
+// endpoint get data sort by deadline
+app.get("/sort/:id_user", async (req,res) => {
+    project.findAll({
+        order: [
+            ["deadline", "ASC"]
+        ]
+    })
+        .then(result => {
+            let hasil = []
+            for(let i = 0; i < 2; i++){
+                hasil.push(result[i])
+            }
+            res.json({
+                status: "success",
+                data : hasil
+            })
+        })
+        .catch(error => {
+            res.json({
+                status: "error",
+                message: error.message
+            })
+        })
+})
+
 // endpoint add
 app.post("/add/", async (req,res) => {
     const data = {
