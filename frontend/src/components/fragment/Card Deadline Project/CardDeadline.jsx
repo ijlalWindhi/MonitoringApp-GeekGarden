@@ -3,7 +3,8 @@ import { useState } from 'react';
 import {API_URL} from '../../../utils/constants'
 
 export default function CardDeadline() {
-    const CARD_URL = `${API_URL}project/sort`;
+    const data = JSON.parse(localStorage.getItem('item'))
+    const CARD_URL = `${API_URL}project/sort/${data.id_user}`;
     const [projects, setProjects] = useState([]);
 
     try{
