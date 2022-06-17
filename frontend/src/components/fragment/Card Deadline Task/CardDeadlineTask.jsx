@@ -22,8 +22,6 @@ export default function CardDeadline() {
     }catch(err){
         console.log(err);
     }
-
-    // console.log(task)
     return (
         <>
             {task.map((item) => {
