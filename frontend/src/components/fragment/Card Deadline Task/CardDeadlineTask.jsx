@@ -5,12 +5,11 @@ import {API_URL} from '../../../utils/constants'
 
 export default function CardDeadline() {
     const [task, setTask] = useState([]);
-    const [data, setData] = useState({})
+    const [data, setData] = useState([])
+    
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('item'))
-        if(data) {
             setData(data)
-        }
     }, [])
 
     const CARD_URL = `${API_URL}task/sortByDeadline/${data.id}`;
