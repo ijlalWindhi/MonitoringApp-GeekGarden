@@ -24,6 +24,7 @@ export default async function LoginHandler(values) {
           window.location.href = '/employee'
         }
       } else {
+        // check does not login
         if(res.data.message === "Invalid Password"){
           alert(res.data.message)
         }else if(res.data.message === "User does not exist"){
