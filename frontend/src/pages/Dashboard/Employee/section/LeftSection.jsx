@@ -12,8 +12,10 @@ export default function LeftSection() {
     <div>
       <img src={Logo} alt="logo"/>
       <h1 className='text-4xl font-medium my-3'>My Dashboard</h1>
+//    use component profile
       <CardProfile/>
       <h1 className='text-2xl font-medium mt-5 mb-3'>Deadline is coming!!</h1>
+//    use component deadline
       <CardDeadline/>
     </div>
   )
